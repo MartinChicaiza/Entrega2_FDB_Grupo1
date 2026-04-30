@@ -1,0 +1,7 @@
+SELECT hoteles.hotelid, SUM(reservas.numadultos+reservas.nummenores3) AS huespedes, ciudades.ciudadid
+FROM reservas
+INNER JOIN habitaciones ON habitaciones.habitacionid = reservas.habitacionasociada
+INNER JOIN hoteles ON hoteles.hotelid = habitaciones.hotelid
+INNER JOIN ciudades ON ciudades.ciudadid = hoteles.ciudad
+WHERE reservas.fechafin >=  DATE '2026-04-05' AND reservas.fechainicio <= DATE '2026-04-11' AND hoteles.hotelid = 3
+GROUP BY hoteles.hotelid, ciudades.ciudadid;

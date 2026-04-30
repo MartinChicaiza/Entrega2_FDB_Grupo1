@@ -1,0 +1,16 @@
+SELECT COUNT(reservas.reservaid) AS num_reservas, habitaciones.tipo
+FROM habitaciones
+INNER JOIN RESERVAS ON RESERVAS.HABITACIONASOCIADA= HABITACIONES.HABITACIONID
+INNER JOIN hoteles ON hoteles.hotelid = habitaciones.hotelid
+WHERE reservas.fechafin >=  DATE '2026-04-05' AND reservas.fechainicio <= DATE '2026-04-11' AND hoteles.hotelid = 3
+GROUP BY habitaciones.tipo
+ORDER BY num_reservas DESC;
+SELECT COUNT(SERVICIOSRESERVAS.RESERVA) AS NUM_RESERVAS, SERVICIOSADICIONALES.SERVICIOID, serviciosadicionales.nombre
+FROM SERVICIOSADICIONALES
+INNER JOIN SERVICIOSRESERVAS ON serviciosreservas.serviciosolicitado = serviciosadicionales.servicioid
+INNER JOIN RESERVAS ON reservas.reservaid = serviciosreservas.reserva
+INNER JOIN habitaciones ON habitaciones.habitacionid = reservas.habitacionasociada
+INNER JOIN hoteles ON hoteles.hotelid = habitaciones.hotelid
+WHERE reservas.fechafin >=  DATE '2026-04-05' AND reservas.fechainicio <= DATE '2026-04-11' AND hoteles.hotelid = 3
+GROUP BY serviciosadicionales.servicioid,Serviciosadicionales.nombre
+ORDER BY num_reservas DESC;

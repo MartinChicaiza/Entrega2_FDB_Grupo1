@@ -1,0 +1,7 @@
+SELECT habitaciones.HabitacionID
+FROM habitaciones
+INNER JOIN hoteles ON hoteles.hotelid = habitaciones.hotelid
+WHERE habitaciones.habitacionid NOT IN (SELECT habitaciones.habitacionid
+FROM habitaciones 
+INNER JOIN reservas ON reservas.habitacionasociada = habitaciones.habitacionid
+WHERE reservas.fechafin >=  DATE '2026-04-06' AND reservas.fechainicio <= DATE '2026-04-05') AND habitaciones.disponible = 1;

@@ -1,0 +1,7 @@
+SELECT SUM(reservas.valortotal) AS ingresos_hotel, ciudades.ciudadid, hoteles.hotelid, SUM(SUM(reservas.ValorTotal)) OVER (PARTITION BY ciudades.CiudadID) AS ingresos_ciudad
+FROM reservas
+INNER JOIN habitaciones ON habitaciones.habitacionid = reservas.habitacionasociada
+INNER JOIN hoteles ON hoteles.hotelid = habitaciones.hotelid
+INNER JOIN ciudades ON ciudades.ciudadid = hoteles.ciudad
+WHERE EXTRACT(YEAR FROM reservas.FechaInicio) = 2026
+GROUP BY ciudades.ciudadid,hoteles.hotelid;

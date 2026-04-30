@@ -1,0 +1,7 @@
+SELECT COUNT(reservas.reservaid) AS num_reservas, hoteles.hotelid, ciudades.ciudadid, TO_CHAR(reservas.FechaInicio, 'MM/YYYY') AS periodo
+FROM reservas
+INNER JOIN habitaciones ON habitaciones.habitacionid = reservas.habitacionasociada
+INNER JOIN hoteles ON hoteles.hotelid = habitaciones.hotelid
+INNER JOIN ciudades ON ciudades.ciudadid = hoteles.ciudad
+GROUP BY hoteles.hotelid, ciudades.ciudadid, TO_CHAR(reservas.FechaInicio, 'MM/YYYY')
+ORDER BY MIN(reservas.fechainicio);
